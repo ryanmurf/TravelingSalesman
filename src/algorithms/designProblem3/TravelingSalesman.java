@@ -27,7 +27,11 @@ public class TravelingSalesman {
 
 		SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph = in.getGraph();
 		
-		BruteForce nn = new BruteForce(graph, in.vertexCost, threads);
+		SimulatedAnnealing anneal = new SimulatedAnnealing(graph, in.vertexCost);
+		
+		
+		//BruteForce nn = new BruteForce(graph, in.vertexCost, threads);
+		
 		
 		//displayGraph(graph);
 		

@@ -22,7 +22,7 @@ public class BruteForce {
 		List<MyVertex> start = new ArrayList<MyVertex>();
 
 		public WorkRunnable() {
-
+			
 		}
 
 	    public void run() { 	
