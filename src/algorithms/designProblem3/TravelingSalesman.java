@@ -3,9 +3,7 @@ package algorithms.designProblem3;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -25,17 +23,16 @@ public class TravelingSalesman {
 
 	public static void main(String[] args) {
 		Input in = new Input(args[0]);
+		int threads = Integer.valueOf(args[1]);
 
 		SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph = in.getGraph();
 		
+		BruteForce nn = new BruteForce(graph, in.vertexCost, threads);
+		
 		//displayGraph(graph);
 		
-		//DepthFirstIterator<MyVertex, MyWeightedEdge> dfs = new DepthFirstIterator<MyVertex, MyWeightedEdge>(graph, graph.vertexSet().iterator().next());
-		//while (dfs.hasNext()) {
-		//	System.out.print(dfs.next());
-		//}
 		
-		List<MyVertex> cities = new ArrayList<MyVertex>();
+		/*List<MyVertex> cities = new ArrayList<MyVertex>();
 		for (MyVertex myVertex : graph.vertexSet()) {
 			cities.add(myVertex);
 			nearestNeighbor(cities, graph);
@@ -46,6 +43,7 @@ public class TravelingSalesman {
 			System.out.println("Finished checking "+myVertex.toString()+" as start."+solutionsDisplay);
 		}
 		
+		
 		for (List<MyVertex> solution : solutions) {
 			double cost = 0;
 			for (int i = 0; i < solution.size(); i++) {
@@ -55,7 +53,7 @@ public class TravelingSalesman {
 			cost += getCost(solution, graph);
 			System.out.print(" (" + String.valueOf((int) cost) + ")\n");
 			System.out.println("");
-		}
+		}*/
 		
 		
 		//displayGraph(graph);
@@ -84,11 +82,7 @@ public class TravelingSalesman {
 		return ((int) cost);
 	}
 	
-	public static void nearestNeighbor(List<MyVertex> cities, SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph) {
-		Set<MyVertex> du = new HashSet<MyVertex>(cities);
-		if(du.size() < cities.size())
-			return;
-		
+	public static void nearestNeighbor(List<MyVertex> cities, SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph) {		
 		if(cities.size() == graph.vertexSet().size()) {
 			if(solutions.size() == 0) {
 				solutions.add(new ArrayList<MyVertex>(cities));
