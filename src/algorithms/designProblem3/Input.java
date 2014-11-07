@@ -1,17 +1,21 @@
 package algorithms.designProblem3;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.jgrapht.graph.SimpleWeightedGraph;
 
 public class Input {
 	private Path filePath;
 	private String fileName;
 	private int nCities;
 	private int[][] adjMatrix;
-	private String[] names;
+	private List<MyVertex> vertices;
 	
 	public Input(String filePath) {
 		this.filePath = Paths.get(filePath);
@@ -26,7 +30,7 @@ public class Input {
 	private void read() {
 		List<String> lines = null;
 		try {
-			 lines = Files.readAllLines(this.filePath);
+			 lines = Files.readAllLines(this.filePath, Charset.defaultCharset());
 		} catch (IOException e) {
 			System.out.println("File: "+this.fileName+" could not be opened.");
 			System.exit(1);
@@ -35,7 +39,12 @@ public class Input {
 		
 		nCities = Integer.valueOf(lines.get(0).split("[ \t]+")[0]);
 		lines.remove(0);
-		names = lines.get(0).trim().split("[ \t]+");
+		String[] names = lines.get(0).trim().split("[ \t]+");
+		vertices = new ArrayList<MyVertex>(names.length);
+		for(int i=0; i<names.length; i++) {
+			MyVertex temp = new MyVertex(names[i], 0.0);
+			vertices.add(temp);
+		}
 		lines.remove(0);
 		adjMatrix = new int[nCities][nCities];
 		int i=0;
@@ -56,7 +65,61 @@ public class Input {
 	public int[][] getAdjMatrix() {
 		return this.adjMatrix;
 	}
-	public String[] getNames() {
-		return this.names;
+	
+	public List<MyVertex> getVertices() {
+		return this.vertices;
+	}
+	
+	public SimpleWeightedGraph<MyVertex, MyWeightedEdge> getGraph() {
+		SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph = new SimpleWeightedGraph<MyVertex, MyWeightedEdge>(
+				MyWeightedEdge.class);
+				
+		while(reduceSingleEdges());
+		
+		for (int i = 0; i < vertices.size(); i++)
+			if(vertices.get(i).name.compareTo("") != 0)
+				graph.addVertex(vertices.get(i));
+
+		for (int i = 0; i < adjMatrix.length; i++) {
+			for (int j = 0; j < adjMatrix[i].length; j++) {
+				if (i != j && adjMatrix[i][j] != 0 && adjMatrix[i][j] != -1) {
+					MyWeightedEdge e = graph.addEdge(vertices.get(i), vertices.get(j));
+					double weight = 0;
+					weight = (double) adjMatrix[i][j];
+					graph.setEdgeWeight(e, weight);
+				}
+			}
+		}
+		return graph;
+	}
+	
+	private boolean reduceSingleEdges() {
+		boolean foundOne = false;
+		
+		for (int i = 0; i < vertices.size(); i++) {
+			int edges = 0;
+			int index = 0;
+			for (int j = 0; j < adjMatrix[i].length; j++) {
+				if (i != j) {
+					if (adjMatrix[i][j] != 0 && adjMatrix[i][j] != -1) {
+						edges++;
+						index = j;
+					}
+					if(adjMatrix[j][i] != 0 && adjMatrix[j][i] != -1) {
+						edges++;
+						index = j;
+					}
+				}
+			}
+			if(edges == 1) {
+				foundOne = true;
+				vertices.get(index).name += vertices.get(i).name + vertices.get(index).name;
+				vertices.get(i).name = "";
+				vertices.get(index).cost = (double) adjMatrix[i][index]*2 + vertices.get(i).cost;
+				adjMatrix[i][index] = 0;
+			}
+		}
+		
+		return foundOne;
 	}
 }
