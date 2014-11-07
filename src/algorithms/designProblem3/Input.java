@@ -16,6 +16,7 @@ public class Input {
 	private int nCities;
 	private int[][] adjMatrix;
 	private List<MyVertex> vertices;
+	public double vertexCost = 0;
 	
 	public Input(String filePath) {
 		this.filePath = Paths.get(filePath);
@@ -115,7 +116,7 @@ public class Input {
 				foundOne = true;
 				vertices.get(index).name += vertices.get(i).name + vertices.get(index).name;
 				vertices.get(i).name = "";
-				vertices.get(index).cost = (double) adjMatrix[i][index]*2 + vertices.get(i).cost;
+				vertexCost += (double) adjMatrix[i][index]*2;
 				adjMatrix[i][index] = 0;
 			}
 		}
