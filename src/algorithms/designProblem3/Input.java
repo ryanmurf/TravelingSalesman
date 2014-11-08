@@ -15,7 +15,7 @@ public class Input {
 	private String fileName;
 	private int nCities;
 	private int[][] adjMatrix;
-	private List<MyVertex> vertices;
+	public List<MyVertex> vertices;
 	public double vertexCost = 0;
 	
 	public Input(String filePath) {

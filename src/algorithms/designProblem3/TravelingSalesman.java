@@ -24,14 +24,27 @@ public class TravelingSalesman {
 	public static void main(String[] args) {
 		Input in = new Input(args[0]);
 		int threads = Integer.valueOf(args[1]);
-
+		
+		MyVertex start = null;
+		MyVertex end = null;
+		if(args.length > 2) {
+			for (MyVertex v : in.vertices) {
+				if(v.name.compareTo(args[2]) == 0)
+					start = v;
+				else if (v.name.compareTo(args[3]) == 0)
+					end = v;
+			}
+		} else {
+			start = in.vertices.get(0);
+			end = in.vertices.get(in.vertices.size() - 1);
+		}
+		
+		
 		SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph = in.getGraph();
 		
-		SimulatedAnnealing anneal = new SimulatedAnnealing(graph, in.vertexCost);
+		//SimulatedAnnealing anneal = new SimulatedAnnealing(graph, in.vertexCost);
 		
-		
-		//BruteForce nn = new BruteForce(graph, in.vertexCost, threads);
-		
+		BruteForce nn = new BruteForce(graph, in.vertexCost, start, end, threads);
 		
 		//displayGraph(graph);
 		

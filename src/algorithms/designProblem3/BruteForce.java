@@ -13,8 +13,8 @@ public class BruteForce {
 	List<List<MyVertex>> solutions = new ArrayList<List<MyVertex>>();
 	
 	SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph;
-	List<MyVertex> start;
-	List<MyVertex> end;
+	MyVertex start;
+	MyVertex end;
 	double verticesCost;
 	
 	public class WorkRunnable implements Runnable {
@@ -44,7 +44,9 @@ public class BruteForce {
 	    }
 	}
 	
-	public BruteForce(SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph, double verticesCost, int threads) {
+	public BruteForce(SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph, double verticesCost, MyVertex start, MyVertex end, int threads) {
+		this.start = start;
+		this.end = end;
 		this.graph = graph;
 		this.verticesCost = verticesCost;
 		start(threads);
@@ -75,14 +77,18 @@ public class BruteForce {
 			
 			Collection<MyVertex> vertices = graph.vertexSet();
 			java.util.Iterator<MyVertex> iter = vertices.iterator();
-			while(iter.hasNext()) {
+			while (iter.hasNext()) {
 				String myVertices = "";
 				List<Thread> threads = new ArrayList<Thread>();
 				for (WorkRunnable myWorker : workers) {
-					myWorker.start.add(iter.next());
-					myVertices += myWorker.start.get(0).toString() + " ";
-					threads.add(new Thread(myWorker));
-					if(!iter.hasNext())
+					MyVertex next = iter.next();
+					if (next.name.compareTo(start.name) >= 0
+							&& next.name.compareTo(end.name) <= 0) {
+						myWorker.start.add(next);
+						myVertices += myWorker.start.get(0).toString() + " ";
+						threads.add(new Thread(myWorker));
+					}
+					if (!iter.hasNext())
 						break;
 				}
 				timer.reset();
@@ -97,14 +103,26 @@ public class BruteForce {
 					}
 				}
 				timer.end();
-				threads.clear();
-				for (WorkRunnable myWorker : workers)
-					myWorker.start.clear();
-				
-				String solutionsDisplay = "";
-				if(nMinSolutions > 0)
-					solutionsDisplay =  " Found "+String.valueOf(nMinSolutions)+" solutions of cost "+String.valueOf(getCost(solutions.get(0), graph)+((int) verticesCost));
-				System.out.println("Finished checking "+myVertices+" as start."+solutionsDisplay+". Completed in "+ String.valueOf(((double)timer.duration())/1000));
+				if (threads.size() > 0) {
+					threads.clear();
+					for (WorkRunnable myWorker : workers)
+						myWorker.start.clear();
+
+					String solutionsDisplay = "";
+					if (nMinSolutions > 0)
+						solutionsDisplay = " Found "
+								+ String.valueOf(nMinSolutions)
+								+ " solutions of cost "
+								+ String.valueOf(getCost(solutions.get(0),
+										graph) + ((int) verticesCost));
+					System.out
+							.println("Finished checking "
+									+ myVertices
+									+ " as start."
+									+ solutionsDisplay
+									+ ". Completed in "
+									+ String.valueOf(((double) timer.duration()) / 1000));
+				}	
 			}
 		}
 		printSolutions();
