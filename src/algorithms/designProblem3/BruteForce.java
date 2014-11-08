@@ -9,7 +9,7 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 
 public class BruteForce {
 	
-	int nMinSolutions = 0;
+	//int nMinSolutions = 0;
 	List<List<MyVertex>> solutions = new ArrayList<List<MyVertex>>();
 	
 	SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph;
@@ -20,24 +20,25 @@ public class BruteForce {
 	public class WorkRunnable implements Runnable {
 		
 		List<MyVertex> start = new ArrayList<MyVertex>();
+		List<List<MyVertex>> solutions = new ArrayList<List<MyVertex>>();
+		//int nMinSolutions = 0;
 
 		public WorkRunnable() {
 			
 		}
 
 	    public void run() { 	
-	    	List<List<MyVertex>> slns = Collections.synchronizedList(solutions);
 	    	ArrayList<MyWeightedEdge> edges = new ArrayList<MyWeightedEdge>(graph.edgesOf(start.get(start.size() - 1)));
 			Collections.sort(edges);
 			for (MyWeightedEdge myWeightedEdge : edges) {
 				if (!start.contains(myWeightedEdge.getV2())) {
 					start.add(myWeightedEdge.getV2());
-					nearestNeighbor(slns, start, graph);
+					nearestNeighbor(solutions, start, graph);
 					start.remove(myWeightedEdge.getV2());
 				}
 				if (!start.contains(myWeightedEdge.getV1())) {
 					start.add(myWeightedEdge.getV1());
-					nearestNeighbor(slns, start, graph);
+					nearestNeighbor(solutions, start, graph);
 					start.remove(myWeightedEdge.getV1());
 				}
 			}
@@ -63,8 +64,8 @@ public class BruteForce {
 				cities.remove(myVertex);
 				timer.end();
 				String solutionsDisplay = "";
-				if(nMinSolutions > 0)
-					solutionsDisplay =  " Found "+String.valueOf(nMinSolutions)+" solutions of cost "+String.valueOf(getCost(solutions.get(0), graph)+((int) verticesCost));
+				if(solutions.size() > 0)
+					solutionsDisplay =  " Found "+String.valueOf(solutions.size())+" solutions of cost "+String.valueOf(getCost(solutions.get(0), graph)+((int) verticesCost));
 				System.out.println("Finished checking "+myVertex.toString()+" as start."+solutionsDisplay+". Completed in "+ String.valueOf(((double)timer.duration())/1000));
 			}
 		} else if(nThreads >= 1) {
@@ -105,13 +106,17 @@ public class BruteForce {
 				timer.end();
 				int jobs = threads.size();
 				threads.clear();
-				for (WorkRunnable myWorker : workers)
+				for (WorkRunnable myWorker : workers) {
+					solutions.addAll(myWorker.solutions);
+					myWorker.solutions.clear();
 					myWorker.start.clear();
+				}
+				getMin();
 				if (jobs > 0) {
 					String solutionsDisplay = "";
-					if (nMinSolutions > 0)
+					if (solutions.size() > 0)
 						solutionsDisplay = " Found "
-								+ String.valueOf(nMinSolutions)
+								+ String.valueOf(solutions.size())
 								+ " solutions of cost "
 								+ String.valueOf(getCost(solutions.get(0),
 										graph) + ((int) verticesCost));
@@ -127,6 +132,33 @@ public class BruteForce {
 			}
 		}
 		printSolutions();
+	}
+	
+	public void getMin() {
+		List<MyVertex> minV = solutions.get(0);
+		List<Integer> remove = new ArrayList<Integer>();
+		int minCost = getCost(minV, graph);
+		
+		for (int i = 0; i < solutions.size(); i++) {
+			List<MyVertex> solution = solutions.get(i);
+			int cost = getCost(solution, graph);
+			if (cost < minCost) {
+				for(int k=0; k<solutions.size(); k++) {
+					if(k!=i) {
+						if(getCost(solutions.get(k), graph) == minCost)
+							remove.add(k);
+					}
+				}
+				minV = solution;
+				minCost = cost;
+			} else if(cost > minCost){
+				remove.add(i);
+			}
+		}
+		Collections.sort(remove);
+		for(int i=remove.size()-1; i>=0; i--) {
+			solutions.remove(remove.get(i).intValue());
+		}
 	}
 	
 	private void printSolutions() {
@@ -156,17 +188,14 @@ public class BruteForce {
 		if(cities.size() == graph.vertexSet().size()) {
 			if(solutions.size() == 0) {
 				solutions.add(new ArrayList<MyVertex>(cities));
-				nMinSolutions = 1;
 			} else {
 				int oldCost = getCost(solutions.get(0), graph);
 				int newCost = getCost(cities, graph);
 				if(newCost < oldCost) {
 					solutions.clear();
 					solutions.add(new ArrayList<MyVertex>(cities));
-					nMinSolutions = 1;
 				} else if(newCost == oldCost) {
 					solutions.add(new ArrayList<MyVertex>(cities));
-					nMinSolutions++;
 				}
 			}
 			return;
