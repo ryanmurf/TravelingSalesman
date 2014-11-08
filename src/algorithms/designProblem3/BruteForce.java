@@ -1,8 +1,8 @@
 package algorithms.designProblem3;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jgrapht.graph.SimpleWeightedGraph;
@@ -76,7 +76,14 @@ public class BruteForce {
 			}
 			
 			
-			Collection<MyVertex> vertices = graph.vertexSet();
+			List<MyVertex> vertices = new ArrayList<MyVertex>(graph.vertexSet());
+			for (Iterator<MyVertex> iterator = vertices.iterator(); iterator.hasNext();) {
+				MyVertex myVertex = iterator.next();
+				if (!(myVertex.name.compareTo(start.name) >= 0
+						&& myVertex.name.compareTo(end.name) <= 0)) {
+					iterator.remove();
+				}
+			}
 			java.util.Iterator<MyVertex> iter = vertices.iterator();
 			while (iter.hasNext()) {
 				String myVertices = "";
@@ -111,7 +118,8 @@ public class BruteForce {
 					myWorker.solutions.clear();
 					myWorker.start.clear();
 				}
-				getMin();
+				if(solutions.size() > 0)
+					getMin();
 				if (jobs > 0) {
 					String solutionsDisplay = "";
 					if (solutions.size() > 0)
