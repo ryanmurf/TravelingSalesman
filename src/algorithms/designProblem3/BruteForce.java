@@ -103,11 +103,11 @@ public class BruteForce {
 					}
 				}
 				timer.end();
-				if (threads.size() > 0) {
-					threads.clear();
-					for (WorkRunnable myWorker : workers)
-						myWorker.start.clear();
-
+				int jobs = threads.size();
+				threads.clear();
+				for (WorkRunnable myWorker : workers)
+					myWorker.start.clear();
+				if (jobs > 0) {
 					String solutionsDisplay = "";
 					if (nMinSolutions > 0)
 						solutionsDisplay = " Found "
@@ -122,7 +122,8 @@ public class BruteForce {
 									+ solutionsDisplay
 									+ ". Completed in "
 									+ String.valueOf(((double) timer.duration()) / 1000));
-				}	
+				}
+				
 			}
 		}
 		printSolutions();
