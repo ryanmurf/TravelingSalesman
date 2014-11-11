@@ -14,6 +14,6 @@ javac -d ./bin/ -cp "jgrapht-0.9.0/lib/*:src/algorithms/designProblem3/" src/alg
 Run  
 ----
 //First arg is map
-//Second arg is threads
-java -cp "./jgrapht-0.9.0/lib/*:./bin/" algorithms.designProblem3.TravelingSalesman maps/map8 0
+//Second arg is the method A for annealing B for bruteforce
+java -cp "./jgrapht-0.9.0/lib/*:./bin/" algorithms.designProblem3.TravelingSalesman maps/map8 A
 

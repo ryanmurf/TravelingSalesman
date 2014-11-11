@@ -17,8 +17,10 @@ public class Input {
 	private int[][] adjMatrix;
 	public List<MyVertex> vertices;
 	public double vertexCost = 0;
+	private String method;
 	
-	public Input(String filePath) {
+	public Input(String filePath, String method) {
+		this.method = method;
 		this.filePath = Paths.get(filePath);
 		if(Files.notExists(this.filePath)) {
 			System.out.println("File does not exist. File: "+filePath);
@@ -55,7 +57,7 @@ public class Input {
 			String[] values = line.split("[ \t]+");
 			for(int j=0; j<values.length; j++) {
 				if(values[j].compareTo("-")==0)
-					adjMatrix[i][j] = -1;
+					adjMatrix[i][j] = 0;
 				else
 					adjMatrix[i][j] = Integer.valueOf(values[j]);
 			}
@@ -73,9 +75,10 @@ public class Input {
 	
 	public SimpleWeightedGraph<MyVertex, MyWeightedEdge> getGraph() {
 		SimpleWeightedGraph<MyVertex, MyWeightedEdge> graph = new SimpleWeightedGraph<MyVertex, MyWeightedEdge>(
-				MyWeightedEdge.class);
-				
-		while(reduceSingleEdges());
+				MyWeightedEdge.class);		
+		
+		if(this.method.compareToIgnoreCase("B") == 0)	
+			while(reduceSingleEdges());
 		
 		for (int i = 0; i < vertices.size(); i++)
 			if(vertices.get(i).name.compareTo("") != 0)

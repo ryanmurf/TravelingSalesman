@@ -48,7 +48,7 @@ public class SimulatedAnnealing {
 					energy = newEnergy;
 				}
 			}
-			//System.out.println("Energy : "+energy);
+			System.out.println("Energy : "+energy);
 			temperature *= COOLING_FACTOR;
 		}
 		solution = new ArrayList<MyVertex>(state);
@@ -94,10 +94,11 @@ public class SimulatedAnnealing {
 	public boolean randomSolution(List<MyVertex> state) {
 		if(state.size() == 0) {
 			//Set a random vertex as first city
-			List<MyVertex> r = new ArrayList<MyVertex>(graph.vertexSet());
-			Collections.shuffle(r);
-			state.add(r.get(0));
+			//List<MyVertex> r = new ArrayList<MyVertex>(graph.vertexSet());
+			//Collections.shuffle(r);
+			state.add(graph.vertexSet().iterator().next());
 			randomSolution(state);
+			return true;
 		}
 		if(state.size() == graph.vertexSet().size()) {
 			return true;
