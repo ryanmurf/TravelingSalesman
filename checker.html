@@ -1,0 +1,394 @@
+<html>
+<script>
+	var game8Vertices = ["A","B","C","D","E","F","G","H"];
+	var game8 = [ [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 6, 0, 0, 0, 0, 0, 0, 0 ], [ 5, 4, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 2, 0, 0, 0, 0, 0 ], [ 7, 0, 0, 8, 0, 0, 0, 0 ],
+			[ 9, 0, 0, 0, 3, 0, 0, 0 ], [ 0, 0, 9, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 7, 0, 0, 0, 0 ] ];
+	var game10Vertices = ["A","B","C","D","E","F","G","H","I","J"];
+	var game10 = [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 6, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 5, 4, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 ], [ 7, 0, 0, 8, 0, 0, 0, 0, 0, 0 ],
+			[ 9, 0, 0, 0, 3, 0, 0, 0, 0, 0 ], [ 0, 0, 9, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 7, 0, 0, 6, 0, 0, 0 ], [ 0, 0, 0, 0, 8, 0, 7, 0, 0, 0 ],
+			[ 0, 0, 4, 0, 0, 0, 0, 0, 8, 0 ] ];
+	var game13Vertices = ["A","B","C","D","E","F","G","H","I","J","K","L","M"];
+	var game13 = [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 7, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 9, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 7, 0, 0, 6, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 8, 0, 7, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0 ],
+			[ 0, 2, 0, 0, 0, 0, 0, 5, 0, 9, 0, 0, 0 ],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 5, 0, 8, 0, 0 ],
+			[ 0, 6, 0, 0, 4, 6, 0, 0, 0, 3, 0, 0, 0 ] ];
+	var game16Vertices = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"];
+	var game16 = [
+			[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 7, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 9, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 2, 0, 0, 0, 0, 0, 5, 0, 9, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 8, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 4, 0, 0, 3, 0, 2, 7, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 5, 0, 0, 6, 0, 0, 1, 0, 9, 6, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 5, 0, 0, 0, 0 ],
+			[ 0, 0, 7, 0, 0, 0, 0, 0, 4, 0, 0, 2, 0, 8, 9, 0 ] ];
+	var game19Vertices = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S"];
+	var game19 = [
+			[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 9, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 7, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 8, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 2, 0, 0, 0, 0, 0, 5, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 5, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 6, 0, 0, 4, 6, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 7, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 ],
+			[ 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 4, 0, 0, 6, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 4, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 4, 0, 0, 0, 8, 0, 0, 0, 0, 9, 0, 0, 0, 0 ] ];
+	var game22Vertices = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V"];
+	var game22 = [
+			[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 9, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 7, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 8, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 2, 0, 0, 0, 0, 0, 5, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 5, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 6, 0, 0, 4, 6, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 7, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 4, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 4, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 0, 4, 0, 0, 0, 8, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0 ],
+			[ 0, 3, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0 ],
+			[ 0, 0, 0, 0, 7, 0, 9, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 5, 0, 0, 0, 0 ],
+			[ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 6, 0, 0, 4, 0, 0 ] ];
+	var game25Vertices = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y"];
+	var game25 = [
+			[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 9, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 7, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 0, 8, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 2, 0, 0, 0, 0, 0, 5, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 8, 0, 0, 0, 0, 5, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 6, 0, 0, 4, 6, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 0, 0, 7, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 4, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 0, 0, 4, 0, 0, 0, 8, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 3, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 0, 7, 0, 9, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 6, 0, 0, 4, 0, 0, 0, 0, 0],
+			[ 7, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0],
+			[ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 5, 0, 0, 7, 0, 0, 0],
+			[ 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0] ];
+			
+	Array.prototype.equals = function (array) {
+    	// if the other array is a falsy value, return
+    	if (!array)
+        	return false;
+
+    	// compare lengths - can save a lot of time 
+    	if (this.length != array.length)
+        	return false;
+
+    	for (var i = 0, l=this.length; i < l; i++) {
+        	// Check if we have nested arrays
+        	if (this[i] instanceof Array && array[i] instanceof Array) {
+           	 // recurse into the nested arrays
+            	if (!this[i].equals(array[i]))
+                	return false;       
+       		 } else if (this[i] != array[i]) { 
+				// Warning - two different object instances will never be equal: {x:20} != {x:20}
+            	return false;   
+        	}           
+    	}       
+    	return true;
+	} 
+
+function check() {
+	var lines = document.getElementById('solutions').value.split("\n");
+	// var lines = document.getElementById('solutions').innerHTML;
+	var output = "";
+	for (var j = 0; j < lines.length-1; j++) {
+		var line = lines[j].toUpperCase();
+		if(line.length <= 1)
+			continue;
+		line = line.trim();
+		line = line.split(" ")[0];
+		output = output + line;
+		output = output + " (";
+
+		var listVertices = line.split('');
+		var vertices = ArrNoDupe(line.split(''));
+		
+		if (listVertices[0] != "A") {
+			output = output + "A is not first";
+		} else {
+			if (game8Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game8[src][dst] != 0) {
+						cost += game8[src][dst];
+					} else if (game8[dst][src] != 0) {
+						cost += game8[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist. ";
+					}
+				}
+				output = output + "m8 ";
+				output = output + cost.toString();
+			} else if (game10Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game10[src][dst] != 0) {
+						cost += game10[src][dst];
+					} else if (game10[dst][src] != 0) {
+						cost += game10[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist";
+					}
+				}
+				output = output + "m10 ";
+				output = output + cost.toString();
+			} else if (game13Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game13[src][dst] != 0) {
+						cost += game13[src][dst];
+					} else if (game13[dst][src] != 0) {
+						cost += game13[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist";
+					}
+				}
+				output = output + "m13 ";
+				output = output + cost.toString();
+			} else if (game16Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game16[src][dst] != 0) {
+						cost += game16[src][dst];
+					} else if (game16[dst][src] != 0) {
+						cost += game16[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist";
+					}
+				}
+				output = output + "m16 ";
+				output = output + cost.toString();
+			} else if (game19Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game19[src][dst] != 0) {
+						cost += game19[src][dst];
+					} else if (game19[dst][src] != 0) {
+						cost += game19[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist";
+					}
+				}
+				output = output + "m19 ";
+				output = output + cost.toString();
+			} else if (game22Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game22[src][dst] != 0) {
+						cost += game22[src][dst];
+					} else if (game22[dst][src] != 0) {
+						cost += game22[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist";
+					}
+				}
+				output = output + "m22 ";
+				output = output + cost.toString();
+			} else if (game25Vertices.equals(vertices)) {
+				var cost = 0;
+				for (var i = 0; i < listVertices.length - 1; i++) {
+					var src = vertexToIndex(listVertices[i]);
+					var dst = vertexToIndex(listVertices[i + 1]);
+					if (game25[src][dst] != 0) {
+						cost += game25[src][dst];
+					} else if (game25[dst][src] != 0) {
+						cost += game25[dst][src];
+					} else {
+						output = output + "Edge "
+								+ listVertices[i]
+								+ listVertices[i + 1]
+								+ " does not exist";
+					}
+				}
+				output = output + "m25 ";
+				output = output + cost.toString();
+			} else {
+				output = output + "Missing Vertices";
+			}
+		}
+		output = output + ")\n";
+	}
+	document.getElementById('solutions').value = output;
+}
+	function ArrNoDupe(a) {
+		a.sort();
+    	var temp = {};
+    	for (var i = 0; i < a.length; i++)
+        	temp[a[i]] = true;
+    	var r = [];
+    	for (var k in temp)
+        	r.push(k);
+    	return r;
+	}
+	function vertexToIndex(vertex) {
+		switch(vertex) {
+		case "A":
+			return 0;
+		case "B":
+			return 1;
+		case "C":
+			return 2;
+		case "D":
+			return 3;
+		case "E":
+			return 4;
+		case "F":
+			return 5;
+		case "G":
+			return 6;
+		case "H":
+			return 7;
+		case "I":
+			return 8;
+		case "J":
+			return 9;
+		case "K":
+			return 10;
+		case "L":
+			return 11;
+		case "M":
+			return 12;
+		case "N":
+			return 13;
+		case "O":
+			return 14;
+		case "P":
+			return 15;
+		case "Q":
+			return 16;
+		case "R":
+			return 17;
+		case "S":
+			return 18;
+		case "T":
+			return 19;
+		case "U":
+			return 20;
+		case "V":
+			return 21;
+		case "W":
+			return 22;
+		case "X":
+			return 23;
+		case "Y":
+			return 24;
+		default:
+			return -1;
+		}
+	}
+</script>
+<head><title>Design Problem 3 Checker</title></head>
+<body>
+<h1>Check Solutions</h1>
+<p>Valid Solution</p>
+<p>1.) Must contain all vertices of a map at least once.</p>
+<p>2.) Start at vertex A and end on any other one.</p>
+<p>3.) All connected vertices must have valid edge.</p>
+<h2>Please paste your solutions</h2>
+<textarea id="solutions" rows="25" cols="90">
+AFEDHDCBCG
+
+ABCJCDHGIEF
+
+ABKHGILDCJMEF
+
+AFEMJNDCBKHOLPIG
+AFEMHKBCDNJOLPIG
+
+AQLIPRDCBKOEFSJMNHG
+AQLIGHNPRDCJMBKOEFS
+
+ABKOEFSJMURDCVTQLIPNHG
+AQLIPNHGURDCJMEFSOKBTV
+AQLIGHNPRDCVTBKOEFSJMU
+
+AQGHNWFSYXLIPRDCJMUEOKBTV
+</textarea>
+<p>
+<button type="button" onclick="check();">Check</button>
+</applet>
+</body></html>
